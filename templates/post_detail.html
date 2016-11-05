@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <div class="post">
+
+     {% for post in posts %}
+
+            <h1>Площа: {{ post.area }}</h1>
+            <p>Станція: {{ post.station }} </p>
+     <p>Дата: {{ post.date_field }} </p>
+     <p>Час: {{ post.time_field }} </p>
+     <p>Виміри: {{ post.m1 }}, {{ post.m2 }}, {{ post.m3 }}, {{ post.m4 }} </p>
+{% endfor %}
+
+
+        </div>
+</body>
+</html>

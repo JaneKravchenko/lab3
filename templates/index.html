@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Title</title>
+    <title>Лабораторна робота</title>
 </head>
 <body>
 <div style = "text-align: center">
@@ -20,42 +20,65 @@
 <h4>групи геоінформатики</h4>
 <h4>Кравченко Євгенії Геннадіївни</h4>
 </div>
-<button type="button" id = "myButton" class="btn btn-success" style = "position:absolute; right: 460px; top: 250px;" >Додати данні</button>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Оберіть таблицю
+<button type="button" id = "myButton" class="btn btn-success" style = "position:absolute; right: 410px; top: 250px;" >Додати данні</button>
+<div class="dropdown" style = "position:absolute; left: 330px; top: 250px;">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >Оберіть таблицю
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-<form id = "areass">
-
-     <input type="radio" name="optradio" value = "areas">Areas
 
 
-     <input type="radio" name="optradio" value="area_inform">Area-inform
-
-    <input type="radio" name="optradio" value="measurment">Measurment
+     <button class="btn btn-default" type="button" id = "areas" onclick=function_areas()>Areas</button></br>
 
 
+     <button class="btn btn-default" type="button" id = "area_inform" onclick=function_area_inform()>Area-inform</button></br>
 
-</form>
+    <button class="btn btn-default" type="button" id = "measurment" onclick=function_measurment()>Measurment</button><br>
+        <button class="btn btn-default" type="button" id = "all" onclick=function_all()>All</button><br>
+
+
+
+
         </ul>
 </div>
 <script defer="defer" type="text/javascript">
-    function areas_function(){
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+    var areass = "all";
+    function function_areas(){
         $("#area_inform").css("background-color", "transparent");
         $("#measurment").css("background-color", "transparent");
-        $("#areas").css("background-color", "rgba(75, 73, 74, 0.43)");
+        $("#areas").css("background-color", "rgba(75, 73, 74, 0.7)");
+        $("#all").css("background-color", "transparent");
+        $("#search").attr("title", "area, area_name");
+        areass = "areas"
 
     }
-        function areas_inform(){
+        function function_area_inform(){
         $("#areas").css("background-color", "transparent");
         $("#measurment").css("background-color", "transparent");
-        $("#area_inform").css("background-color", "rgba(75, 73, 74, 0.43)");
+        $("#area_inform").css("background-color", "rgba(75, 73, 74, 0.7)");
+            $("#all").css("background-color", "transparent");
+            $("#search").attr("title", "areas, station, elevation, point_x, point_y");
+        areass = "area_inform"
+
 
     }
-            function measurment(){
+        function function_measurment(){
         $("#area_inform").css("background-color", "transparent");
         $("#ares").css("background-color", "transparent");
-        $("#measurment").css("background-color", "rgba(75, 73, 74, 0.43)");
+        $("#measurment").css("background-color", "rgba(75, 73, 74, 0.7)");
+            $("#all").css("background-color", "transparent");
+            $("#search").attr("title", "area, station, date_field, time_field, m1, m2, m3, m4");
+        areass = "measurment"
+
+    }
+    function function_all(){
+        $("#area_inform").css("background-color", "transparent");
+        $("#measurment").css("background-color", "transparent");
+        $("#areas").css("background-color", "transparent");
+        $("#all").css("background-color", "rgba(75, 73, 74, 0.7)");
+        areass = "search_a"
 
     }
     function show_all(){
@@ -85,16 +108,14 @@
     }
     function searchf(){
 
-$('input:radio').change(function(){
-var areasss = $("form input[type='radio']:checked").val();});
-
 var form = document.querySelector("#search");
 var val = form.value;
+
         $.ajax({url: "/post_search/",
                         type: "GET",
 
                         data: {
-                            'value': val, 'areasss': areasss
+                            'value': val, 'areasss': areass
                         },
                         async: true,
 
@@ -122,15 +143,14 @@ var val = form.value;
         <button type="submit" class="btn btn-default" style = "position: absolute; top:300px; left: 640px;" onclick = show_all() >Показати все</button>
 
 
-  <li><input type="text" class="form-control" id = "search" placeholder="Введіть критерій для пошуку" style = "position: absolute; top:250px; left: 480px; width: 250px;" value=""><button style="position: absolute; top: 250px; left: 740px;" class="btn btn-default" onclick = searchf() >Знайти</button></li>
+  <li><input type="text" class="form-control" id = "search" data-toggle="tooltip"  placeholder="Введіть критерій для пошуку" style = "position: absolute; top:250px; left: 530px; width: 250px;" value=""><button style="position: absolute; top: 250px; left: 790px;" class="btn btn-default" onclick = searchf() >Знайти</button></li>
 
 
 
-    <button type="submit" class="btn btn-default" onclick = filter_field()>Відфільтрувати по полю</button>
 </div>
 
 
-<table class="table table-hover" id = "table">
+<table class="table table-hover" id = "table" style = "position:absolute; left: 0px; top: 350px;">
  <tr style = "background-color: rgba(246, 255, 180, 0.77)">
     <td >area</td>
     <td >station</td>
@@ -142,7 +162,7 @@ var val = form.value;
     <td>m4</td>
     </tr>
 {% for d in meas%}
-    <tr style = "background-color: rgba(188, 222, 255, 0.29)">
+    <tr >
     <td>{{ d.area }}</td>
     <td>{{ d.station }}</td>
     <td>{{ d.date_field }}</td>

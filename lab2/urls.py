@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^project/', project),
 url(r'^post/', post_detail, name='post_detail'),
-    url(r'^post/new/$', post_new, name='post_new'),
+    url(r'^news', post_new, name='post_new'),
     url(r'^post_search/', post_search, name = 'post search'),
 url(r'^adddata/', adddata, name = 'adddata')
 ]

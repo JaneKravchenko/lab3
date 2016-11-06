@@ -6,53 +6,86 @@
 </head>
 <body>
 {% if data %}
- <tr style = "background-color: rgba(246, 255, 180, 0.77)">
-    <td >area</td>
-    <td >station</td>
-    <td >date field</td>
-    <td>time_field</td>
-    <td>m1</td>
-    <td>m2</td>
-    <td>m3</td>
-    <td>m4</td>
+    <tr style = "background-color: rgba(246, 255, 180, 0.77)">
+    {%  for k in field %}
+        <td >{{ k }}</td>
+    {% endfor %}
     </tr>
-{% for d in data%}
-    <tr style = "background-color: rgba(188, 222, 255, 0.29)">
-    <td>{{ d.area }}</td>
-    <td>{{ d.station }}</td>
-    <td>{{ d.date_field }}</td>
-    <td>{{ d.time_field}}</td>
-    <td>{{ d.m1}}</td>
-    <td>{{ d.m2 }}</td>
-    <td>{{ d.m3 }}</td>
-    <td>{{ d.m4 }}</td>
-    </tr>
-{% endfor %}
-{% endif %}
+    {% for i in data %}
+         <tr>
+              <td >{{ i.area }}</td>
+             <td >{{ i.area_name }}</td>
+             <td >{{ i.elevation }}</td>
+             <td >{{ i.point_x }}</td>
+             <td >{{ i.point_y }}</td>
+
+              <td >{{ i.station }}</td>
+         <td >{{ i.date_field }}</td>
+            <td >{{ i.time_field }}</td>
+            <td >{{ i.m1 }}</td>
+            <td >{{ i.m2 }}</td>
+            <td >{{ i.m3 }}</td>
+            <td >{{ i.m4 }}</td>
+
+         </tr>
+
+    {% endfor %}
+ {% endif %}
 {% if data1%}
      <tr style = "background-color: rgba(246, 255, 180, 0.77)">
-    <td >area</td>
-         <td >area name</td>
-    <td >station</td>
-    <td >date field</td>
-    <td>time_field</td>
-    <td>m1</td>
-    <td>m2</td>
-    <td>m3</td>
-    <td>m4</td>
-    </tr>
+        {% for k in field %}
+
+    <td >{{ k }}</td>
+
+    {% endfor %}
+         </tr>
     {% for i in data1 %}
-        <tr >
-    <td>{{ i.area }}</td>
-            <td>{{ i.area_name }}</td>
-    <td>{{ i.station }}</td>
-    <td>{{ i.date_field }}</td>
-    <td>{{ i.time_field}}</td>
-    <td>{{ i.m1}}</td>
-    <td>{{ i.m2 }}</td>
-    <td>{{ i.m3 }}</td>
-    <td>{{ i.m4 }}</td>
-    </tr>
+        {% if ar == "areas" %}
+            <tr>
+              <td >{{ i.area }}</td>
+              <td >{{ i.area_name }}</td>
+         </tr>
+        {% endif %}
+        {% if ar == "area_inform" %}
+            <tr>
+              <td >{{ i.areas }}</td>
+              <td >{{ i.station }}</td>
+            <td >{{ i.elevation }}</td>
+            <td >{{ i.point_x }}</td>
+            <td >{{ i.point_y }}</td>
+         </tr>
+        {% endif %}
+        {% if ar == "measurment" %}
+            <tr>
+              <td >{{ i.area }}</td>
+              <td >{{ i.station }}</td>
+            <td >{{ i.date_field }}</td>
+            <td >{{ i.time_field }}</td>
+            <td >{{ i.m1 }}</td>
+            <td >{{ i.m2 }}</td>
+            <td >{{ i.m3 }}</td>
+            <td >{{ i.m4 }}</td>
+
+         </tr>
+        {% endif %}
+         {% if ar == "all" %}
+            <tr>
+              <td >{{ i.area }}</td>
+             <td >{{ i.area_name }}</td>
+             <td >{{ i.elevation }}</td>
+             <td >{{ i.point_x }}</td>
+             <td >{{ i.point_y }}</td>
+
+              <td >{{ i.station }}</td>
+         <td >{{ i.date_field }}</td>
+            <td >{{ i.time_field }}</td>
+            <td >{{ i.m1 }}</td>
+            <td >{{ i.m2 }}</td>
+            <td >{{ i.m3 }}</td>
+            <td >{{ i.m4 }}</td>
+
+         </tr>
+        {% endif %}
     {% endfor %}
 {% endif %}
 </body>
